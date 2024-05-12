@@ -1,11 +1,8 @@
 #!/usr/bin/python3
 """
-Define UTF-8 Validation function:
-method that determines if a given data set
-represents a valid UTF-8 encoding
+Define UTF-8 Validation function:method that determines 
+if a given data set represents a valid UTF-8 encoding
 """
-
-
 def validUTF8(data):
     """
     UTF-8 Validation
@@ -28,5 +25,4 @@ def validUTF8(data):
             if not (num & s1 and not (num & s2)):
                 return False
         expected_bytes -= 1
-    #return not expected_bytes
     return expected_bytes == 0
