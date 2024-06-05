@@ -18,16 +18,17 @@ def makeChange(coins, total):
 
     coins.sort(reverse=True)
 
-    i, ncoins = (0, 0)
-    cpy_total = total
+    i, no_coins = (0, 0)
+    
+    total_cpy = total
     len_coins = len(coins)
 
-    while(i < len_coins and cpy_total > 0):
-        if (cpy_total - coins[i]) >= 0:
-            cpy_total -= coins[i]
-            ncoins += 1
+    while(i < len_coins and total_cpy > 0):
+        if (total_cpy - coins[i]) >= 0:
+            total_cpy -= coins[i]
+            no_coins += 1
         else:
             i += 1
 
-    check = cpy_total > 0 and ncoins > 0
-    return -1 if check or ncoins == 0 else ncoins
+    check = total_cpy > 0 and no_coins > 0
+    return -1 if check or no_coins == 0 else no_coins
