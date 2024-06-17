@@ -3,59 +3,31 @@
     of the player with the most rounds
 """
 
-def is_prime(n):
-    if n <= 1:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    max_divisor = int(n**0.5) + 1
-    for d in range(3, max_divisor, 2):
-        if n % d == 0:
-            return False
-    return True
+def isWinner(x, nums):
+    """Prime game winner determination"""
+    if x < 1 or not nums:
+        return None
 
-def sieve_of_eratosthenes(n):
+    m_wins = 0
+    b_wins = 0
+
+    # generate a list of prime number based on the max numbers in num
+    n = max(nums)
     primes = [True] * (n + 1)
     primes[0] = primes[1] = False
-    p = 2
-    while p**2 <= n:
-        if primes[p]:
-            for i in range(p**2, n + 1, p):
-                primes[i] = False
-        p += 1
-    return primes
 
-def play_game(n):
-    primes = sieve_of_eratosthenes(n)
-    numbers = list(range(1, n + 1))
-    player = 0
-    while True:
-        if player == 0:
-            for p in range(2, n + 1):
-                if primes[p] and p in numbers:
-                    numbers = [x for x in numbers if x % p!= 0]
-                    break
-            else:
-                return 1
-        else:
-            for p in range(2, n + 1):
-                if primes[p] and p in numbers:
-                    numbers = [x for x in numbers if x % p!= 0]
-                    break
-            else:
-                return 0
-        player = 1 - player
+    for x in range(2, int(n**0.5) + 1):
+        if primes[x]:
+            for y in range(x**2, n + 1, x):
+                primes[y] = False
 
-def isWinner(x, nums):
-    maria_wins = 0
+    # count the no of pm less than n i nums
     for n in nums:
-        if play_game(n) == 0:
-            maria_wins += 1
-    if maria_wins > x / 2:
-        return "Maria"
-    elif maria_wins < x / 2:
-        return "Ben"
-    else:
+        count = sum(primes[2:n+1])
+        b_wins += count % 2 == 0
+        m_wins += count % 2 == 1
+
+    if m_wins == b_wins:
         return None
+
+    return 'Maria' if m_wins > b_wins else 'Ben'
