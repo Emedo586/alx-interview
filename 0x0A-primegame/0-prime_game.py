@@ -3,6 +3,7 @@
     of the player with the most rounds
 """
 
+
 def isWinner(x, nums):
     """Prime game winner determination"""
     if x < 1 or not nums:
